@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import InterviewAccordion from "./InterviewAccordion";
 import styles from "./TopicPage.module.css";
@@ -86,7 +87,16 @@ export default function TopicPage({ data }: TopicPageProps) {
 
   return (
     <main className={styles.page}>
-      <div className="pageBackground" style={{ backgroundImage: `url('${bgUrl}')` }} />
+      <div className="pageBackground">
+        <Image
+          src={bgUrl}
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 768px) 350px, 650px"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       {/* HERO */}
       <section className={styles.hero}>
         <div className="container">
@@ -141,7 +151,7 @@ export default function TopicPage({ data }: TopicPageProps) {
             <div className={styles.conceptsRoadmap}>
               {data.topics.map((topic, idx) => {
                 const isExpanded = expandedIndices.includes(idx);
-                const topicSlug = data.title.toLowerCase() === "spring boot" ? "springBoot" : data.title.toLowerCase().replace(/[^a-z0-9]+/g, "");
+                const topicSlug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
                 const conceptSlug = topic.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
                 const detailUrl = `/${topicSlug}/${conceptSlug}`;
 

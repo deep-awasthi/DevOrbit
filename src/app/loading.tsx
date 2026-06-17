@@ -5,7 +5,7 @@ export default function Loading() {
     <main className={styles.loading}>
       <div className={styles.spinner} />
 
-      <h2>Loading DevOrbit</h2>
+      <h2>Loading NexEngineer</h2>
 
       <p>
         Preparing your learning experience...

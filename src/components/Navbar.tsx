@@ -23,7 +23,7 @@ import styles from "./Navbar.module.css";
 const topics = [
   { name: "Java",        href: "/java",       icon: DiJava,        color: "#f89820" }, // Java orange
   { name: "DSA",         href: "/dsa",        icon: Binary,        color: "#ec4899" }, // pink (no official logo)
-  { name: "Spring Boot", href: "/springBoot", icon: SiSpringboot,  color: "#6db33f" }, // Spring green
+  { name: "Spring Boot", href: "/spring-boot", icon: SiSpringboot,  color: "#6db33f" }, // Spring green
   { name: "Docker",      href: "/docker",     icon: SiDocker,      color: "#2496ed" }, // Docker blue
   { name: "Kubernetes",  href: "/kubernetes", icon: SiKubernetes,  color: "#326ce5" }, // K8s blue
   { name: "LLD",         href: "/lld",        icon: Puzzle,        color: "#a855f7" }, // purple (no official logo)
@@ -40,7 +40,7 @@ export default function Navbar() {
     <header className={styles.navbar}>
       <div className={`container ${styles.wrapper}`}>
         <Link href="/" className={styles.logo}>
-          Dev<span>Orbit</span>
+          Nex<span>Engineer</span>
         </Link>
 
         <div className={styles.rightSection}>

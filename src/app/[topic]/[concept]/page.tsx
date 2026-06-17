@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { pageData as java } from "@/data/java";
 import { pageData as kubernetes } from "@/data/kubernetes";
@@ -10,7 +11,7 @@ import { pageData as go } from "@/data/go";
 import { pageData as hld } from "@/data/hld";
 import { pageData as lld } from "@/data/lld";
 import { pageData as python } from "@/data/python";
-import { pageData as springBoot } from "@/data/springBoot";
+import { pageData as springBoot } from "@/data/spring-boot";
 import { TopicPageData, TopicItem } from "@/components/TopicPage";
 import styles from "./page.module.css";
 
@@ -24,8 +25,10 @@ const dataMap: Record<string, TopicPageData> = {
   hld,
   lld,
   python,
-  springBoot
+  "spring-boot": springBoot
 };
+
+export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 interface PageProps {
   params: Promise<{
@@ -326,7 +329,7 @@ export default async function ConceptDetailPage({ params }: PageProps) {
   const getBgUrl = (topicSlug: string) => {
     const t = topicSlug.toLowerCase();
     if (t === "java") return "/backgrounds/java_icon.png";
-    if (t === "springboot") return "/backgrounds/springboot_icon.png";
+    if (t === "spring-boot") return "/backgrounds/springboot_icon.png";
     if (t === "dsa") return "/backgrounds/dsa_icon.png";
     if (t === "docker") return "/backgrounds/docker_icon.png";
     if (t === "kubernetes") return "/backgrounds/kubernetes_icon.png";
@@ -342,7 +345,16 @@ export default async function ConceptDetailPage({ params }: PageProps) {
 
   return (
     <main className={styles.page}>
-      <div className="pageBackground" style={{ backgroundImage: `url('${bgUrl}')` }} />
+      <div className="pageBackground">
+        <Image
+          src={bgUrl}
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 768px) 350px, 650px"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       <div className={styles.container}>
         {/* BREADCRUMBS */}
         <nav className={styles.breadcrumbs}>

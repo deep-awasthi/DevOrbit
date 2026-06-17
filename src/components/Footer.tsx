@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className="container">
-        <h3>DevOrbit</h3>
+        <h3>NexEngineer</h3>
 
         <p>
           Master Software Engineering through structured learning paths.

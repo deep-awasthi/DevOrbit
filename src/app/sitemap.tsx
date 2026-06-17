@@ -1,93 +1,94 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://nexengineer.dev";
   return [
     {
-      url: "https://devorbit.com",
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
 
     {
-      url: "https://devorbit.com/java",
+      url: `${baseUrl}/java`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/dsa",
+      url: `${baseUrl}/dsa`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/springBoot",
+      url: `${baseUrl}/spring-boot`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/docker",
+      url: `${baseUrl}/docker`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/kubernetes",
+      url: `${baseUrl}/kubernetes`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/lld",
+      url: `${baseUrl}/lld`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
 
     {
-      url: "https://devorbit.com/hld",
+      url: `${baseUrl}/hld`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
 
     {
-      url: "https://devorbit.com/python",
+      url: `${baseUrl}/python`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
 
     {
-      url: "https://devorbit.com/ai",
+      url: `${baseUrl}/ai`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
 
     {
-      url: "https://devorbit.com/go",
+      url: `${baseUrl}/go`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
 
     {
-      url: "https://devorbit.com/notes",
+      url: `${baseUrl}/notes`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
     },
 
     {
-      url: "https://devorbit.com/about",
+      url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,

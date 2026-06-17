@@ -13,11 +13,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devorbit.io"),
+  metadataBase: new URL("https://nexengineer.dev"),
 
   title: {
-    default: "DevOrbit",
-    template: "%s | DevOrbit",
+    default: "NexEngineer",
+    template: "%s | NexEngineer",
   },
 
   description:
@@ -38,10 +38,10 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "DevOrbit",
+    title: "NexEngineer",
     description:
       "Master Software Engineering through structured learning paths.",
-    siteName: "DevOrbit",
+    siteName: "NexEngineer",
     type: "website",
   },
 
@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={inter.className}>
         <Navbar />
 

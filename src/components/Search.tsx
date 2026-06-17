@@ -9,7 +9,7 @@ import styles from "./Search.module.css";
 const searchData = [
   { title: "Java", href: "/java" },
   { title: "DSA", href: "/dsa" },
-  { title: "Spring Boot", href: "/springBoot" },
+  { title: "Spring Boot", href: "/spring-boot" },
   { title: "Docker", href: "/docker" },
   { title: "Kubernetes", href: "/kubernetes" },
   { title: "LLD", href: "/lld" },

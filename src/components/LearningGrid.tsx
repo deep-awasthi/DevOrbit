@@ -16,7 +16,7 @@ const topics = [
   },
   {
     title: "Spring Boot",
-    href: "/springBoot",
+    href: "/spring-boot",
     description:
       "REST APIs, Security, JPA, Microservices and Kafka",
   },

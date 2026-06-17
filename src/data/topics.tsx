@@ -1,7 +1,7 @@
 export const topics = [
   { name: "Java", href: "/java" },
   { name: "DSA", href: "/dsa" },
-  { name: "Spring Boot", href: "/springBoot" },
+  { name: "Spring Boot", href: "/spring-boot" },
   { name: "Docker", href: "/docker" },
   { name: "Kubernetes", href: "/kubernetes" },
   { name: "LLD", href: "/lld" },

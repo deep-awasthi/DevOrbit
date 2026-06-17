@@ -1,8 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Sparkles, ArrowLeft, BookOpen, Terminal, CheckCircle2, AlertTriangle } from "lucide-react";
 import styles from "./page.module.css";
+
+export const unstable_instant = { prefetch: "static", unstable_disableValidation: true };
 
 // Static data structure definitions
 interface CheatsheetDetail {
@@ -193,32 +196,93 @@ public class OrderController {
   },
   "docker-commands": {
     title: "Docker Commands",
-    description: "Essential Docker CLI commands for container lifecycle, builds, volumes, and networks.",
+    description: "Essential Docker CLI commands, multi-stage Dockerfiles, resource limits, and security best practices.",
     tips: [
-      "docker run runs a container. Use -d for detached mode, -p for port forwarding, and -v for mounting volumes.",
-      "docker exec runs commands inside an active container. Use -it for interactive TTY.",
-      "docker prune cleans up unused containers, networks, and images. Releases heavy disk pressure.",
-      "Multi-stage Dockerfiles reduce final image sizes by building artifacts in an compile container and copying them into a light runtime image."
+      "Containers share the host OS kernel and use Namespaces (isolation) and Control Groups/cgroups (resource limits).",
+      "Order your Dockerfile instructions from the least frequently changed (e.g. dependency metadata) to the most frequently changed to maximize layer caching.",
+      "Use Multi-stage builds: compile in a build container, copy the compiled binary to a minimal runtime base (e.g., Alpine or Distroless).",
+      "Never run containers as root inside production; always create and declare a non-root USER and group.",
+      "Use exec form (ENTRYPOINT ['java', '-jar', 'app.jar']) rather than shell form to ensure the app runs as PID 1 and gracefully handles SIGTERM."
     ],
-    codeSnippet: `# Building and Running Containers
-docker build -t app-service:1.0.0 .
-docker run -d -p 8080:8080 --name backend-api -v app-data:/data app-service:1.0.0
+    codeSnippet: `# Stage 1: The Builder Environment
+FROM maven:3.9-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY pom.xml .
+# Cache dependencies before copying source code
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Inspection and Debugging
-docker ps -a
-docker logs -f backend-api
-docker exec -it backend-api /bin/sh
-
-# Clean Up
-docker system prune -a --volumes`,
-    codeLanguage: "bash",
+# Stage 2: The Production Runtime
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+# Security: Create and run as a non-root user
+RUN addgroup -S springgroup && adduser -S springuser -G springgroup
+USER springuser:springgroup
+COPY --from=builder /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]`,
+    codeLanguage: "dockerfile",
     pitfalls: [
-      "Running containers as root users inside the Docker container exposes the host system to security vulnerabilities.",
-      "Hardcoding environment configurations or credentials in Dockerfiles breaks key configuration patterns."
+      "Running containers as root inside production exposes host resources to potential privilege escalation if the application is compromised.",
+      "Using shell form for ENTRYPOINT (ENTRYPOINT java -jar app.jar) prevents catching SIGTERM signals, causing slow shutdowns and force-kills.",
+      "Omitting a .dockerignore file causes massive local caches (target/, node_modules/) and secrets (.env) to bloat the image context."
     ],
     bestPractices: [
-      "Implement multi-stage builds to keep production images tiny.",
-      "Use .dockerignore to exclude node_modules, target folders, and git histories from image layers."
+      "Always set resource limits on containers (e.g. --memory=1g --cpus=2) to prevent a single service from starving the host server.",
+      "Scan container images for vulnerabilities using tool utilities like 'docker scout quickview' or 'docker scout cves'.",
+      "Mount sensitive credentials at runtime (via environment injections or secrets managers) instead of baking them into image layers."
+    ]
+  },
+  "docker-compose-commands": {
+    title: "Docker Compose Commands",
+    description: "Orchestrate multi-container applications, solve startup race conditions, and manage local service networks.",
+    tips: [
+      "Docker Compose runs multi-container environments using a unified YAML configuration file.",
+      "Services registered in the same compose file share a network and can resolve each other directly by service name (e.g., mysql:3306).",
+      "Solve container startup race conditions by using a database healthcheck combined with the condition: service_healthy dependency.",
+      "Configure resource constraints inside compose files to enforce limits across CPU and memory globally."
+    ],
+    codeSnippet: `services:
+  mysql:
+    image: mysql:8
+    container_name: demo-mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: \${DB_PASSWORD:-fallback_secure_root_password}
+      MYSQL_DATABASE: demo_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-spring-app:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      DB_HOST: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
+volumes:
+  db_data:`,
+    codeLanguage: "yaml",
+    pitfalls: [
+      "Using depends_on without healthcheck conditions: The app container starts as soon as the DB container is created, but before the DB is ready to accept connections, causing a connection crash.",
+      "Hardcoding credentials or local database passwords directly in the YAML file instead of referencing environment variables."
+    ],
+    bestPractices: [
+      "Ensure service containers are configured to restart: always or on-failure to auto-recover from system crashes.",
+      "Expose only necessary ports to the host machine. Internal database/cache ports can be left unmapped if only other container services access them."
     ]
   },
   "caching-cheat-sheet": {
@@ -449,7 +513,16 @@ function initializeRevision() {
 
   return (
     <main className={styles.page}>
-      <div className="pageBackground" style={{ backgroundImage: `url('${bgUrl}')` }} />
+      <div className="pageBackground">
+        <Image
+          src={bgUrl}
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 768px) 350px, 650px"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       <div className={styles.container}>
         {/* Navigation Breadcrumbs */}
         <nav className={styles.breadcrumbs}>

@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
     },
 
     sitemap:
-      "https://devorbit.com/sitemap.xml",
+      "https://nexengineer.dev/sitemap.xml",
   };
 }

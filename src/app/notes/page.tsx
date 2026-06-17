@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
-
 const sections = [
   {
     title: "Java",
@@ -79,7 +79,16 @@ const sections = [
 export default function NotesPage() {
   return (
     <main className={styles.page}>
-      <div className="pageBackground" style={{ backgroundImage: "url('/backgrounds/notes_icon.png')" }} />
+      <div className="pageBackground">
+        <Image
+          src="/backgrounds/notes_icon.png"
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 768px) 350px, 650px"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       <div className="container">
         <h1>Quick Revision Notes</h1>
 
