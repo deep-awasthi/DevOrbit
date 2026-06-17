@@ -153,17 +153,37 @@
 
   gap: 14px;
 
-  padding: 14px;
+  padding: 12px 14px;
 
   border-radius: 14px;
 
-  transition: 0.25s;
+  transition: background 0.25s ease;
+}
+
+.dropdownItem span {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.dropdownItem svg {
+  flex-shrink: 0;
+  /* icon color is set inline per topic — hover does not override */
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
 }
 
 .dropdownItem:hover {
-  background: rgba(59, 130, 246, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+}
 
-  color: #60a5fa;
+.dropdownItem:hover span {
+  color: white;
+}
+
+.dropdownItem:hover svg {
+  opacity: 1;
 }
 
 /* NOTES + ABOUT */

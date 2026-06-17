@@ -434,10 +434,14 @@ function initializeRevision() {
   // Map topic backgrounds
   const getBgUrl = (topicSlug: string) => {
     const t = topicSlug.toLowerCase();
-    if (t === "java" || t === "spring-boot") return "/backgrounds/java_icon.png";
+    if (t === "java") return "/backgrounds/java_icon.png";
+    if (t === "spring-boot") return "/backgrounds/springboot_icon.png";
     if (t === "dsa") return "/backgrounds/dsa_icon.png";
-    if (t === "docker-kubernetes" || t === "system-design") return "/backgrounds/hld_icon.png";
-    if (t === "go" || t === "python" || t === "ai") return "/backgrounds/ai_icon.png";
+    if (t === "docker-kubernetes") return "/backgrounds/docker_icon.png";
+    if (t === "system-design") return "/backgrounds/hld_icon.png";
+    if (t === "go") return "/backgrounds/go_icon.png";
+    if (t === "python") return "/backgrounds/python_icon.png";
+    if (t === "ai") return "/backgrounds/ai_icon.png";
     return "/background.png";
   };
 

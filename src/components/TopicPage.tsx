@@ -69,10 +69,16 @@ export default function TopicPage({ data }: TopicPageProps) {
 
   const getBgUrl = (title: string) => {
     const t = title.toLowerCase();
-    if (t === "java" || t === "spring boot") return "/backgrounds/java_bg.png";
-    if (t === "dsa") return "/backgrounds/dsa_bg.png";
-    if (t === "docker" || t === "kubernetes" || t === "lld" || t === "hld") return "/backgrounds/infra_bg.png";
-    if (t === "python" || t === "ai" || t === "go") return "/backgrounds/python_ai_bg.png";
+    if (t === "java") return "/backgrounds/java_icon.png";
+    if (t === "spring boot") return "/backgrounds/springboot_icon.png";
+    if (t === "dsa") return "/backgrounds/dsa_icon.png";
+    if (t === "docker") return "/backgrounds/docker_icon.png";
+    if (t === "kubernetes") return "/backgrounds/kubernetes_icon.png";
+    if (t === "lld") return "/backgrounds/lld_icon.png";
+    if (t === "hld") return "/backgrounds/hld_icon.png";
+    if (t === "python") return "/backgrounds/python_icon.png";
+    if (t === "ai") return "/backgrounds/ai_icon.png";
+    if (t === "go") return "/backgrounds/go_icon.png";
     return "/background.png";
   };
 
